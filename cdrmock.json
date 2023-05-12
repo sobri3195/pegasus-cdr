@@ -1,0 +1,19 @@
+{
+  "calls": [
+    {
+      "caller_number": "+1234567890",
+      "recipient_number": "+9876543210",
+      "call_duration": "10 minutes"
+    },
+    {
+      "caller_number": "+1111111111",
+      "recipient_number": "+2222222222",
+      "call_duration": "5 minutes"
+    },
+    {
+      "caller_number": "+3333333333",
+      "recipient_number": "+4444444444",
+      "call_duration": "7 minutes"
+    }
+  ]
+}
