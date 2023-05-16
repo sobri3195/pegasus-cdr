@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>отчет по звонкам</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script>
+        function bodyDisplay(id) {
+            var img = document.getElementById(id + '_img');
+            var state = 'none';
+            var imgpath = img.src.split('/');
+            if (imgpath[imgpath.length - 1] == 'closed.png'){
+                state = 'block';
+                imgpath[imgpath.length - 1] = 'opened.png';
+            } else {
+                imgpath[imgpath.length - 1] = 'closed.png';
+            }
+            document.getElementById(id).style.display = state;
+            img.src = imgpath.join('/');
+        }
+    </script>
+</head>
+<body>
+    <h3 class="text-center display-3">Отчет по звонкам</h3>
+    <div class="container">
+        <form action="" method="get">
+            <div class="row">
+                <div class="form-group col-lg-3 col-md-6">
+                    <label class="col-form-label" for="from">С:</label>
+                    <input type="date" name="from" class="form-control" id="from"
+                           value="<?php echo  (isset($_GET['from'])) ? $_GET['from'] : date('Y-m-d');?>">
+                </div>
+                <div class="form-group col-lg-3 col-md-6">
+                    <label class="col-form-label" for="to">По:</label>
+                    <input type="date" name="to" class="form-control" id="to"
+                           value="<?php echo  (isset($_GET['to'])) ? $_GET['to'] : date('Y-m-d');?>">
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="col-form-label" for="ext">Внешний номер:</label>
+                    <select class="custom-select" name="external" id="ext">
+                        <option value="0">все</option>
+                        <?php foreach ($dids as $did): ?>
+                        <option value="<?php echo  $did; ?>"
+                            <?php echo  (isset($_GET['external']) && ($_GET['external'] == $did)) ? 'selected' : ''?>>
+                            <?php echo  $did; ?>
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <label class="col-form-label" for="int">Внутренний номер:</label>
+                    <select class="custom-select" name="internal" id="int">
+                        <option value="0">все</option>
+                        <?php foreach ($intertnals as $internal): ?>
+                            <option value="<?php echo  $internal; ?>"
+                        <?php echo  (isset($_GET['internal']) && ($_GET['internal'] == $internal)) ? 'selected' : ''?>>
+                                <?php echo  $internal; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-primary btn btn-sm mt-2 mb-2">показать</button>
+        </form>
+    </div>
+    <div class="container">
+        <?php foreach ($callGroups as $group): ?>
+        <?php include("callgroup.phtml");?>
+        <?php endforeach;?>
+    </div>
+</body>
+</html>
